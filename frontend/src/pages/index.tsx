@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const Home = () => {
 
-  const [chartData, setChartData] = useState<Record<any,any>>({});
+  const [chartData, setChartData] = useState<Record<string,any>>({});
 
   useEffect(() => {
     const fetchData = async () => {

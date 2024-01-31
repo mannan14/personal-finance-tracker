@@ -1,4 +1,4 @@
-import React, {useState, useEffect, createContext, useContext } from 'react'
+import React, {useState, useEffect, createContext, useContext, useMemo } from 'react'
 import axios from 'axios';
 
 type TransactionProp = {
@@ -35,11 +35,13 @@ const TransactionProvider = ({children}: {children:React.ReactNode}) => {
         getTransaction()
     },[])
 
+    const value = useMemo(()=>({
+        transaction,
+        setTransaction
+    }),[transaction])
+
     return (
-        <TransactionContext.Provider value={{
-            transaction,
-            getTransaction
-        }}>
+        <TransactionContext.Provider value = {value}>
             {children}
         </TransactionContext.Provider>
     )
