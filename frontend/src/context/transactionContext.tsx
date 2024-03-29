@@ -13,7 +13,8 @@ type TransactionProp = {
 
 type TransactionContextProps = {
     transaction: TransactionProp[],
-    getTransaction: () => void
+    getTransaction: () => Promise<void>,
+    setTransaction: React.Dispatch<React.SetStateAction<never[]>>;
 }
 
 const TransactionContext = createContext({} as TransactionContextProps)
@@ -37,7 +38,8 @@ const TransactionProvider = ({children}: {children:React.ReactNode}) => {
 
     const value = useMemo(()=>({
         transaction,
-        setTransaction
+        setTransaction,
+        getTransaction
     }),[transaction])
 
     return (
@@ -49,7 +51,7 @@ const TransactionProvider = ({children}: {children:React.ReactNode}) => {
 const useTransactionContext = () => {
     const context = useContext(TransactionContext);
     if (!context) {
-      throw new Error('useAccountContext must be used within the AppProvider');
+      throw new Error('useTransactionContext must be used within the AppProvider');
     }
     return context;
   };
